@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>测试项目</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      header,
+      footer {
+        background-color: #177cb0; /* 柔和的蓝色 */
+        color: rgb(255, 255, 255);
+        text-align: center;
+        padding: 10px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      nav ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      nav ul li {
+        display: inline;
+        margin-right: 20px;
+      }
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+      main {
+        padding: 20px;
+        flex: 1; /* Ensures main takes up remaining space */
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        border-radius: 8px;
+      }
+      .test-list {
+        list-style-type: none;
+        padding: 0;
+        width: 100%;
+      }
+      .test-item,
+      .test-header {
+        display: flex;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .test-item div,
+      .test-header div {
+        flex: 1;
+        padding: 5px 10px;
+        margin: 0 2px;
+      }
+      .test-header {
+        font-weight: bold;
+        background-color: #e0e0e0;
+        border-bottom: 2px solid #ccc;
+      }
+      .test-item img {
+        width: 100px;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.25s ease;
+        border-radius: 5px;
+      }
+      .test-item img:hover {
+        transform: scale(1.1);
+      }
+      .enlarged {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(6);
+        z-index: 1000;
+        max-width: 100%;
+        max-height: 100%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+      }
+      .controls {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1001;
+        display: none;
+      }
+      .controls button {
+        margin: 5px;
+        padding: 10px;
+        background: white;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .controls button:hover {
+        background-color: #f0f0f0;
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #177cb0; /* 柔和的蓝色 */
+        color: white;
+        text-align: center;
+        padding: 5px 0;
+        box-shadow: 0 -2px 5px rgba(37, 33, 33, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>针对“携程网站”无障碍测试的报告</h1>
+      <nav>
+        <ul>
+          <li><a href="tests.html">测试项目</a></li>
+          <li><a href="team.html">团队成员</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="test-header">
+        <div>编号</div>
+        <div>内容</div>
+        <div>级别</div>
+        <div>符合</div>
+        <div>理由</div>
+        <div>截图</div>
+      </div>
+      <ul class="test-list">
+        <!-- 示例项目 -->
+        <li class="test-item">
+          <div>1.1.1</div>
+          <div>非文本内容</div>
+          <div>A</div>
+          <div>是</div>
+          <div>
+            找出网页中的非文本验证码后，发现验证码仅提供视觉形式，没有提供听觉或触觉替代方案。对于视障人士，这样的验证码无法使用。
+          </div>
+          <div>
+            <img
+              src="img/1.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.3.1</div>
+          <div>信息和关系</div>
+          <div>A</div>
+          <div>是</div>
+          <div>
+            二维码图片提供替代文本描述其用途。页面中的二维码应有明确的说明。
+          </div>
+          <div>
+            <img
+              src="img/131.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.3.2</div>
+          <div>有含义的顺序</div>
+          <div>A</div>
+          <div>是</div>
+          <div>网页内容的顺序可以在html语句中规定，如使用有序列表</div>
+          <div>
+            <img
+              src="img/10.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.3.3</div>
+          <div>感官特性</div>
+          <div>A</div>
+          <div>是</div>
+          <div>
+            网页上的某些控件（如图标按钮）通过视觉特性（如形状、大小、颜色）来传达信息，也有提供其他感官反馈（如文本描述或语音提示）。
+          </div>
+          <div>
+            <img
+              src="img/133.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.3.4</div>
+          <div>定位</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>选择“竖向”，测试网页显示正常</div>
+          <div>
+            <img
+              src="img/134.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.3.5</div>
+          <div>明确输入目的</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>网页上的某些输入框有提供明确的输入目的提示。</div>
+          <div>
+            <img
+              src="img/14.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.3.6</div>
+          <div>明确目的</div>
+          <div>AAA</div>
+          <div>是</div>
+          <div>
+            在使用标记语言实现的内容中，用户界面组件、图标及区域的用途可以编程式确定。
+          </div>
+          <div>
+            <img
+              src="img/136.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.1</div>
+          <div>颜色用途</div>
+          <div>A</div>
+          <div>是</div>
+          <div>
+            文本颜色不作为传达信息的唯一手段，使用了其他视觉提示。这对色盲和色弱用户尤为重要。
+          </div>
+          <div>
+            <img
+              src="img/141.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3</div>
+          <div>对比度（最小）</div>
+          <div>AA</div>
+          <div>否</div>
+          <div>
+            网页上某些文本与背景的对比度不足，特别是导航栏和搜索栏的文本，无法达到最小对比度要求（4.5:1）。这会对视力较弱的用户和色盲用户造成困扰。
+          </div>
+          <div>
+            <img
+              src="img/143.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.4</div>
+          <div>调整文本</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>
+            文本可以通过浏览器放大功能进行调整，放大至200%仍能正常显示且不影响内容或功能。这对低视力用户非常重要。
+          </div>
+          <div>
+            <img
+              src="img/5.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.5</div>
+          <div>文本图像</div>
+          <div>AA</div>
+          <div>否</div>
+          <div>
+            网页上的横幅广告使用了图像形式的文本，未提供文本的替代信息。图像形式的文本在缩放或使用屏幕阅读器时可能不易读取或理解。
+          </div>
+          <div>
+            <img
+              src="img/145.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.6</div>
+          <div>对比度（加强）</div>
+          <div>AAA</div>
+          <div>是</div>
+          <div>
+            网页上某些文本与背景的对比度很明显，特别是一些按钮和标签的文本，颜色为浅灰色和蓝色。
+          </div>
+          <div>
+            <img
+              src="img/146.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.8</div>
+          <div>视觉呈现</div>
+          <div>AAA</div>
+          <div>否</div>
+          <div>
+            前景颜色和背景颜色无法由用户选择。这对低视力和阅读障碍用户影响较大。
+          </div>
+          <div>
+            <img
+              src="img/6.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.9</div>
+          <div>文本图像（没有例外）</div>
+          <div>AAA</div>
+          <div>否</div>
+          <div>
+            网页上有部分图像形式的文本，这些文本在缩放或使用屏幕阅读器时可能不易读取或理解，且未提供适当的替代文本信息。
+          </div>
+          <div>
+            <img
+              src="img/7.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.10</div>
+          <div>反复滚动</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>
+            网页上存在反复滚动的内容区域，例如横幅广告和推荐内容滚动条，但无异常。
+          </div>
+          <div>
+            <img
+              src="img/1410.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.11</div>
+          <div>非文本对比</div>
+          <div>AA</div>
+          <div>否</div>
+          <div>
+            网页上存在多个非文本元素，如图片和图标，其对比度不足，无法确保视障人士清晰辨认。例如，推荐酒店部分的图标和文字对比度不足，难以辨认。
+          </div>
+          <div>
+            <img
+              src="img/1411.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.12</div>
+          <div>文本间距</div>
+          <div>AA</div>
+          <div>否</div>
+          <div>
+            网页上的文本间距未达到无障碍标准，导致用户在阅读时体验不佳。例如，页脚的链接文本之间的行间距和段落间距不足，影响阅读体验。
+          </div>
+          <div>
+            <img
+              src="img/8.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>1.4.13</div>
+          <div>悬停或焦点内容</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>
+            把鼠标放在网页中，网页会自动弹出一些内容或者信息，悬停的时候可以清除、可以悬停、可以持久有效
+          </div>
+          <div>
+            <img
+              src="img/9.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+
+        <li class="test-item">
+          <div>2.1.1</div>
+          <div>键盘</div>
+          <div>A</div>
+          <div>否</div>
+          <div>
+            网页上的部分功能无法通过键盘接口实现操作，或者在某些操作过程中需要特定时限的键击操作。这导致视障或肢体障碍用户在使用键盘进行导航和操作时会遇到困难。例如，下拉菜单和弹出窗口无法通过键盘完全操作。
+          </div>
+          <div>
+            <img
+              src="img/11.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.1.2</div>
+          <div>无键盘陷阱</div>
+          <div>一级</div>
+          <div>否</div>
+          <div>
+            在网页上进行键盘导航时，发现某些交互元素（如弹出窗口和下拉菜单）存在键盘陷阱。这意味着用户在使用键盘进行操作时，可能会被困在某个元素中，无法继续进行其他操作。这对依赖键盘操作的用户（如视障或肢体障碍用户）造成了很大的不便。
+          </div>
+          <div>
+            <img
+              src="img/212.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.1.3</div>
+          <div>键盘（没有例外）</div>
+          <div>A</div>
+          <div>否</div>
+          <div>
+            网页上的部分功能无法通过键盘接口实现操作，这对依赖键盘操作的用户（如视障或肢体障碍用户）造成了很大的不便。例如，下拉菜单和弹出窗口无法通过键盘完全操作。
+          </div>
+          <div>
+            <img
+              src="img/213.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.1.4</div>
+          <div>字符键快捷键</div>
+          <div>A</div>
+          <div>是</div>
+          <div>网页上不存在字符键快捷键的问题。</div>
+          <div>
+            <img src="img/.png" alt="Screenshot" onclick="enlargeImage(this)" />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.2.1</div>
+          <div>定时可调</div>
+          <div>A</div>
+          <div>否</div>
+          <div>
+            网页上的某些功能具有定时要求，例如图中所示的剩余时间倒计时功能。该功能在一定时间后自动执行操作，对于依赖辅助技术的用户而言，无法灵活调整定时器或延长操作时间，这会对他们的使用体验造成不便。
+          </div>
+          <div>
+            <img
+              src="img/215.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.2.2</div>
+          <div>暂停、停止、隐藏</div>
+          <div>A</div>
+          <div>否</div>
+          <div>
+            网页上的某些自动播放（轮播图）或自动滚动的内容缺乏暂停、停止或隐藏的功能。
+          </div>
+          <div>
+            <img
+              src="img/222.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.2.3</div>
+          <div>无定时</div>
+          <div>A</div>
+          <div>否</div>
+          <div>
+            网页上的某些内容存在定时操作，用户未能在规定时间内完成操作将导致内容丢失或页面刷新。例如，页面中存在的计时功能（如预订确认页面的倒计时）没有提供足够的时间供用户完成操作，尤其是对于视障用户或操作速度较慢的用户。
+          </div>
+          <div>
+            <img
+              src="img/215.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.2.5</div>
+          <div>重新认证</div>
+          <div>A</div>
+          <div>是</div>
+          <div>
+            在网页上，当会话过期时，用户通过重新填写，页面保留着上一次填写的信息。
+          </div>
+          <div>
+            <img
+              src="img/225.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.2.6</div>
+          <div>超时</div>
+          <div>A</div>
+          <div>是</div>
+          <div>
+            在网页上，当会话超时时，用户收到明确的通知。例如下单支付页面
+          </div>
+          <div>
+            <img
+              src="img/215.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.3.1</div>
+          <div>闪光三次或低于阈值</div>
+          <div>A</div>
+          <div>否</div>
+          <div>
+            网页中包含一些元素，它们在短时间内闪光超过三次，或者闪光的频率低于一般阈值。这种闪光可能会对有光敏性癫痫或其他光敏性条件的用户造成触发风险。
+          </div>
+          <div>
+            <img
+              src="img/231.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.3.2</div>
+          <div>闪光三次</div>
+          <div>A</div>
+          <div>否</div>
+          <div>
+            网页中包含一些元素，它们在短时间内闪光不超过三次，都是鼠标停留闪光的。
+          </div>
+          <div>
+            <img
+              src="img/231.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.3.4</div>
+          <div>交互动画</div>
+          <div>A</div>
+          <div>否</div>
+          <div>
+            页面中包含一些交互动画，如滑动拼图验证。这些动画对功能或信息传达并非至关重要，但无法禁用。这可能会影响一些用户的使用体验，特别是那些有运动障碍或视觉敏感的用户。
+          </div>
+          <div>
+            <img
+              src="img/234.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.1</div>
+          <div>绕过模块</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>操作无异常。</div>
+          <div>
+            <img
+              src="img/241.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.2</div>
+          <div>网页标题</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>网页标题描述了页面内容，操作无异常。</div>
+          <div>
+            <img
+              src="img/242.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.3</div>
+          <div>聚焦顺序</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>聚焦顺序符合预期，用户可以按照逻辑顺序导航。</div>
+          <div>
+            <img
+              src="img/243.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.4</div>
+          <div>链接目的（在上下文里）</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>链接目的明确，用户可以理解链接的目标。</div>
+          <div>
+            <img
+              src="img/244.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.5</div>
+          <div>多种办法</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>提供了多种导航方法，用户可以选择适合的方式。</div>
+          <div>
+            <img
+              src="img/245.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.6</div>
+          <div>标题和标签</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>标题和标签清晰明了，用户可以快速理解内容。</div>
+          <div>
+            <img
+              src="img/246.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.7</div>
+          <div>焦点可见</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>焦点可见，用户在导航时可以清楚地看到当前焦点。</div>
+          <div>
+            <img
+              src="img/247.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.8</div>
+          <div>定位</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>用户可以通过适当的定位方法来导航网页内容。</div>
+          <div>
+            <img
+              src="img/248.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.9</div>
+          <div>链接目的（只针对链接）</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>链接目的明确，用户可以理解链接的目标。</div>
+          <div>
+            <img
+              src="img/249.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.10</div>
+          <div>章节标题</div>
+          <div>AA</div>
+          <div>否</div>
+          <div>章节标题未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/2410.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.11</div>
+          <div>焦点不被遮挡（最小）</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>焦点不被遮挡，用户在导航时可以清楚地看到当前焦点。</div>
+          <div>
+            <img
+              src="img/2411.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.12</div>
+          <div>焦点不被遮挡（增强）</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>焦点不被遮挡，用户在导航时可以清楚地看到当前焦点。</div>
+          <div>
+            <img
+              src="img/2412.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.4.13</div>
+          <div>焦点外观</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>焦点外观明确，用户在导航时可以清楚地看到当前焦点。</div>
+          <div>
+            <img
+              src="img/2413.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.5.1</div>
+          <div>指针手势</div>
+          <div>A</div>
+          <div>是</div>
+          <div>指针手势正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/251.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.5.2</div>
+          <div>指针取消</div>
+          <div>A</div>
+          <div>否</div>
+          <div>指针取消功能未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/252.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.5.3</div>
+          <div>名称中的标签</div>
+          <div>A</div>
+          <div>是</div>
+          <div>名称中的标签清晰明了，用户可以快速理解内容。</div>
+          <div>
+            <img
+              src="img/253.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.5.4</div>
+          <div>运动驱动</div>
+          <div>A</div>
+          <div>是</div>
+          <div>运动驱动功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/254.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.5.5</div>
+          <div>目标尺寸</div>
+          <div>A</div>
+          <div>否</div>
+          <div>目标尺寸未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/255.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.5.6</div>
+          <div>并发输入机制</div>
+          <div>A</div>
+          <div>无</div>
+          <div>该站点没有并发输入机制功能。</div>
+          <div>
+            <img
+              src="img/256.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.5.7</div>
+          <div>拖动移动</div>
+          <div>A</div>
+          <div>是</div>
+          <div>拖动移动功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/257.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>2.5.8</div>
+          <div>目标大小（最小）</div>
+          <div>A</div>
+          <div>无</div>
+          <div>该站点没有目标大小（最小）功能。</div>
+          <div>
+            <img
+              src="img/258.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.1.1</div>
+          <div>网页语言</div>
+          <div>AA</div>
+          <div>否</div>
+          <div>网页语言未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/311.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.1.2</div>
+          <div>局部语言</div>
+          <div>AA</div>
+          <div>无</div>
+          <div>该站点没有局部语言功能。</div>
+          <div>
+            <img
+              src="img/312.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.1.3</div>
+          <div>特殊单词</div>
+          <div>AAA</div>
+          <div>否</div>
+          <div>特殊单词未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/313.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.1.4</div>
+          <div>缩写</div>
+          <div>AAA</div>
+          <div>否</div>
+          <div>缩写未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/314.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.1.6</div>
+          <div>阅读水平</div>
+          <div>AAA</div>
+          <div>无</div>
+          <div>该站点是专门为旅游设计的，没有提供特别复杂的阅读内容。</div>
+          <div>
+            <img
+              src="img/316.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.1.6</div>
+          <div>发音</div>
+          <div>AAA</div>
+          <div>否</div>
+          <div>发音未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/317.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.2.1</div>
+          <div>焦点</div>
+          <div>AA</div>
+          <div>否</div>
+          <div>焦点未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/321.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.2.2</div>
+          <div>输入</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>输入功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/322.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.2.3</div>
+          <div>一致性导航</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>导航一致性良好，用户可以轻松找到相同的位置。</div>
+          <div>
+            <img
+              src="img/323.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.2.4</div>
+          <div>一致性标识</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>标识一致性良好，用户可以轻松找到相同的标识。</div>
+          <div>
+            <img
+              src="img/324.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.2.5</div>
+          <div>请求变化</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>请求变化功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/325.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.2.6</div>
+          <div>请求变化</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>请求变化功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/326.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.2.7</div>
+          <div>错误标识</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>错误标识功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/327.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.3.2</div>
+          <div>标签或说明</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>标签或说明清晰明了，用户可以快速理解内容。</div>
+          <div>
+            <img
+              src="img/332.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.3.3</div>
+          <div>错误建议</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>错误建议功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/333.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.3.4</div>
+          <div>错误预防</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>错误预防功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/334.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.3.5</div>
+          <div>辅助输入</div>
+          <div>AA</div>
+          <div>否</div>
+          <div>辅助输入功能未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/335.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.3.6</div>
+          <div>预防错误（全部）</div>
+          <div>AAA</div>
+          <div>否</div>
+          <div>预防错误功能未达到无障碍的要求。</div>
+          <div>
+            <img
+              src="img/336.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.3.7</div>
+          <div>冗余表项</div>
+          <div>AA</div>
+          <div>是</div>
+          <div>冗余表项功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/337.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.3.8</div>
+          <div>可访问认证（最低）</div>
+          <div>AA</div>
+          <div>无</div>
+          <div>该站点没有认证功能。</div>
+          <div>
+            <img
+              src="img/338.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>3.3.9</div>
+          <div>可访问认证（增强）</div>
+          <div>AA</div>
+          <div>无</div>
+          <div>该站点没有认证功能。</div>
+          <div>
+            <img
+              src="img/339.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>4.1.3</div>
+          <div>名称，角色，值</div>
+          <div>AAA</div>
+          <div>是</div>
+          <div>名称，角色，值功能正常，操作无异常。</div>
+          <div>
+            <img
+              src="img/413.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+        <li class="test-item">
+          <div>4.1.3</div>
+          <div>状态信息</div>
+          <div>AAA</div>
+          <div>无</div>
+          <div>该站点没有状态信息功能。</div>
+          <div>
+            <img
+              src="img/414.png"
+              alt="Screenshot"
+              onclick="enlargeImage(this)"
+            />
+          </div>
+        </li>
+      </ul>
+    </main>
+    <footer>
+      <p>&copy; 2024 测试团队</p>
+    </footer>
+    <div class="controls" id="controls">
+      <button onclick="closeImage()">关闭</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      let currentImage;
+      let scale = 0.8;
+
+      function enlargeImage(img) {
+        currentImage = img;
+        img.classList.add("enlarged");
+        scale = 0.8; // Set initial scale to 80% of the viewport
+
+        // Create an overlay
+        let overlay = document.createElement("div");
+        overlay.classList.add("overlay");
+        overlay.onclick = closeImage;
+        document.body.appendChild(overlay);
+
+        // Show controls
+        document.getElementById("controls").style.display = "block";
+
+        // Add wheel event listener to control zoom
+        img.addEventListener("wheel", zoomImage);
+      }
+
+      function zoomImage(event) {
+        event.preventDefault();
+        if (event.deltaY < 0) {
+          scale += 0.1; // Zoom in
+        } else {
+          scale -= 0.1; // Zoom out
+        }
+        scale = Math.max(0.5, Math.min(scale, 5)); // Limit scale to 5x
+        currentImage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      }
+
+      function closeImage() {
+        if (currentImage) {
+          currentImage.classList.remove("enlarged");
+          currentImage.style.transform = "";
+          currentImage.removeEventListener("wheel", zoomImage);
+          currentImage = null;
+        }
+        let overlay = document.querySelector(".overlay");
+        if (overlay) {
+          document.body.removeChild(overlay);
+        }
+
+        // Hide controls
+        document.getElementById("controls").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
